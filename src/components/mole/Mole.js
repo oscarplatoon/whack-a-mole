@@ -3,13 +3,23 @@ import './Mole.css'
 import MoleIcon from './Mole.svg'
 
 class Mole extends Component {
-  render() {
-    return (
-      <div className="den">
-        <img src={MoleIcon} className="Mole" alt="Mole" />
-      </div>
-    )
-  }
+    constructor(props) {
+        super(props)
+        this.onMoleWhack = props.onMoleClick;
+    }
+
+
+
+    render() {
+        this.isVisible = this.props.isVisible;
+        let mole = this.isVisible ? <img src={MoleIcon} className="Mole" alt="Mole" onClick={this.onMoleWhack} /> : null
+
+        return (
+            <div className="den">
+                {mole}
+            </div>
+        )
+    }
 }
 
 export default Mole
