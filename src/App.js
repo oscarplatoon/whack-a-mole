@@ -30,9 +30,12 @@ class App extends Component {
     })
   }
   render() {
-    const dens = this.state.dens.map((den, index) => {
+    const dens = this.state.dens.map((den, index) => 
+    { 
+      console.log(den)
       return (
-        <Mole key={`mole-${index}`} />
+        <Mole key={`mole-${index}`} value={den.isMoleVisible} />
+        
       )
     })
     return (
