@@ -6,10 +6,14 @@ class App extends Component {
   state = {
     dens: this.getDensState(),
     points: 0,
+
   }
+
+
   componentDidMount() {
     this.startGame()
   }
+
   startGame() {
     setInterval(() => {
       this.setState({
@@ -20,32 +24,50 @@ class App extends Component {
   getDensState() {
     return new Array(9).fill({}).map(() => {
       return { 
-        isMoleVisible: [true,false][Math.round(Math.random())] 
+        isMoleVisible: [true,false][Math.round(Math.random())],
+        isMoleClicked: false
       }
     })
   }
-  onMoleWhacked() {
+
+  onMoleWhacked(currentIndex) {
+    if (this.state.dens[currentIndex].isMoleClicked === false) {
+      this.setState({
+        points: this.state.points + 1 
+      })
+    }
+  
+    
+    let newDens = this.state.dens.map((den,index) => {
+      return {...den}
+    })
+
+    newDens[currentIndex].isMoleClicked = true
+
     this.setState({
-      points: this.state.points + 1
+    dens: newDens 
     })
+
+
   }
-  render() {
-    const dens = this.state.dens.map((den, index) => {
-      return (
-        <Mole key={`mole-${index}`} />
-      )
-    })
-    return (
-      <div className="App">
-        <h1>WHACK-A-MOLE!</h1>
-        <h2>Points: {this.state.points}</h2>
-        <div className="dens">
-          {dens}
-          <div style={{clear: 'both'}}></div>
-        </div>
-      </div>
-    )
-  }
+render() {
+   const dens = this.state.dens.map((den, index) => {
+       return (
+           <Mole key={`mole-${index}`} isVisible={den.isMoleVisible} onMoleClick={this.onMoleWhacked.bind(this)} currentIndex={index} />
+       )
+   })
+
+   return (
+       <div className="App">
+           <h1>WHACK-A-MOLE!</h1>
+           <h2>Points: {this.state.points}</h2>
+           <div className="dens">
+               {dens}
+               <div style={{ clear: 'both' }}></div>
+           </div>
+       </div>
+   )
+}
 }
 
 export default App
