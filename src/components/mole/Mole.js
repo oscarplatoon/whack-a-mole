@@ -6,7 +6,8 @@ class Mole extends Component {
 
   moleActive() {
     if(this.props.value) {
-      return <img src={MoleIcon} className="Mole" alt="Mole" />
+    
+      return <img onClick={this.props.onMoleWhacked} src={MoleIcon} className="Mole" alt="Mole" />
     }return null
   }
 
