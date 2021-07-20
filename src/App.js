@@ -3,13 +3,16 @@ import './App.css'
 import Mole from './components/mole/Mole.js'
 
 class App extends Component {
+  
   state = {
     dens: this.getDensState(),
     points: 0,
   }
+
   componentDidMount() {
     this.startGame()
   }
+
   startGame() {
     setInterval(() => {
       this.setState({
@@ -17,6 +20,7 @@ class App extends Component {
       })
     }, 1500)
   }
+
   getDensState() {
     return new Array(9).fill({}).map(() => {
       return { 
@@ -24,22 +28,24 @@ class App extends Component {
       }
     })
   }
-  onMoleWhacked() {
+
+  onMoleWhacked = () => {
     this.setState({
       points: this.state.points + 1
     })
   }
+
   render() {
     const dens = this.state.dens.map((den, index) => {
       return (
-        <Mole key={`mole-${index}`} />
+        <Mole key={`mole-${index}`} den={den} onMoleWhacked={ this.onMoleWhacked }/>
       )
     })
     return (
       <div className="App">
         <h1>WHACK-A-MOLE!</h1>
         <h2>Points: {this.state.points}</h2>
-        <div className="dens">
+        <div className="dens" >
           {dens}
           <div style={{clear: 'both'}}></div>
         </div>
