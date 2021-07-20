@@ -3,11 +3,15 @@ import './Mole.css'
 import MoleIcon from './Mole.svg'
 
 class Mole extends Component {
+  
   render() {
     return (
       <div className="den">
-        <img src={MoleIcon} className="Mole" alt="Mole" />
+        {this.props.isVisible && <img onClick={this.props.onMoleWhacked} src={MoleIcon} />}
       </div>
+
+
+  
     )
   }
 }
