@@ -24,15 +24,16 @@ class App extends Component {
       }
     })
   }
-  onMoleWhacked() {
+  onMoleWhacked = ()=> {
     this.setState({
       points: this.state.points + 1
     })
   }
   render() {
-    const dens = this.state.dens.map((den, index) => {
+    const dens = this.state.dens.map((den, index) => { 
       return (
-        <Mole key={`mole-${index}`} />
+        <Mole key={`mole-${index}`} value={den.isMoleVisible} onMoleWhacked={this.onMoleWhacked} />
+        
       )
     })
     return (
